@@ -227,7 +227,7 @@ abstract class Queue extends Component
         list($job, $error) = $this->unserializeMessage($message);
 
         // Handle aborted jobs without thrown error
-        if ($attempt > 0) {
+        if ($attempt > 1) {
             if ($job instanceof RetryableJobInterface && !$job->canRetry($attempt - 1, $error)) {
                 return true;
             } elseif ($attempt > $this->attempts) {
