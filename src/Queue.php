@@ -228,12 +228,12 @@ abstract class Queue extends Component
 
         // Handle aborted jobs without thrown error
         if ($attempt > 1) {
-            print "--------------------------------". $attempt."\n\n\n";
+            fwrite(STDERR, print_r($attempt, TRUE));
             if ($job instanceof RetryableJobInterface && !$job->canRetry($attempt, $error)) {
-                print "X--------------------------------". $attempt."\n\n\n";
+                fwrite(STDERR, print_r($attempt, TRUE));
                 return true;
             } elseif ($attempt > $this->attempts) {
-                print "Y--------------------------------". $attempt."\n\n\n";
+                fwrite(STDERR, print_r($attempt, TRUE));
                 return true;
             }
         }
