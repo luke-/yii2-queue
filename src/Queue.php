@@ -228,9 +228,12 @@ abstract class Queue extends Component
 
         // Handle aborted jobs without thrown error
         if ($attempt > 1) {
+            print "--------------------------------". $attempt."\n\n\n";
             if ($job instanceof RetryableJobInterface && !$job->canRetry($attempt, $error)) {
+                print "X--------------------------------". $attempt."\n\n\n";
                 return true;
             } elseif ($attempt > $this->attempts) {
+                print "Y--------------------------------". $attempt."\n\n\n";
                 return true;
             }
         }
